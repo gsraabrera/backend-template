@@ -3,12 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleController;
-use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PersonController;
-use App\Http\Controllers\Admin\OrganizationController as AdminOrganizationController;
 use App\Http\Controllers\Admin\ActivityLogController as AdminActivityLogController;
 use App\Http\Controllers\Admin\PersonController as AdminPersonController;
-use App\Http\Controllers\Admin\FacilityController as AdminFacilityController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -31,11 +28,8 @@ Route::middleware('auth:sanctum')->get('/auth/user', [GoogleController::class, '
 Route::middleware('auth:sanctum')->post('/auth/logout', [GoogleController::class, 'logout']);
 
 Route::apiResource('organizations', OrganizationController::class);
-Route::apiResource('persons', PersonController::class);
 
 Route::group(['middleware' => ['auth:sanctum', 'role:Admin'],'prefix'=>'admin', 'as' => 'admin.'], function () {
-    Route::apiResource('organizations', AdminOrganizationController::class);
     Route::apiResource('activity-logs', AdminActivityLogController::class);
     Route::apiResource('persons', AdminPersonController::class);
-    Route::apiResource('facilities', AdminFacilityController::class);
 });
