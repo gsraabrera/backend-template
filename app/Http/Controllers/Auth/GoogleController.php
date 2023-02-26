@@ -62,9 +62,6 @@ class GoogleController extends Controller
     public function user(){
         
         $user = User::where('email',Auth::user()->email)->with('roles')->first();
-        // $super_admin = Role::create(['name' => 'Super Admin']);
-        // $admin = Role::create(['name' => 'Admin']);
-        // $user->assignRole('Admin');
         return response()->json(
             [
              'user' => $user,

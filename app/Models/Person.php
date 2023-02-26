@@ -30,26 +30,8 @@ class Person extends Model
 
     public function scopeFilter($query, $filters){
         if($filters->has('fields')) {
-            $field_alias = array(); 
-            foreach ($filters->fields as $key => $value) {
-                $value = "people.".$value;
-                array_push($field_alias, $value);
-             }
-            $query->select($field_alias);
+            $query->select($filters->fields);
         }
-
-        //order
-        /*if($filters->has('order_type')) {
-            if($filters->order_field === 'parent'){
-                $filters->order_field =  "org_parent.acronym";
-            }
-            $query->orderBy($filters->order_field, $filters->order_type);
-        }
-
-        if($filters->has('with_parent_name')) {
-            $query->leftJoin('organizations as org_parent', 'organizations.id', '=', 'org_parent.parent_id')
-                ->addSelect('org_parent.acronym as parent','organizations.id');
-        } */
 
         if($filters->has('first_name')) {
             $query->where('people.first_name',$filters->first_name);

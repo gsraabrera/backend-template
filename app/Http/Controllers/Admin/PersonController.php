@@ -15,7 +15,7 @@ class PersonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $person = Person::filter($request, '');
 
@@ -30,16 +30,6 @@ class PersonController extends Controller
              'persons' => $person,
             ], 200
          );
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -65,16 +55,8 @@ class PersonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $person = Person::filter($request, '');
-
-        if($request->has('items')) {
-            $person = $person->paginate($request->items);
-        } else {
-            $person = $person->get();
-        }
-
+    public function show(Person $person)
+    {   
         return response()->json(
             [
              'persons' => $person,
